@@ -1,5 +1,9 @@
 import pandas as pd
 import os
+import argparse
+
+parser = argparse.ArgumentParser(description='Description of your app here.')
+parser.add_argument('-G', '--genome', default="hg19",  help='Choose a reference genome.')
 
 folder = os.path.dirname(__file__)
 
@@ -73,20 +77,28 @@ def create_bed(bedname,panel,genes,genome):
 
     bed.to_csv(folder+"/output/"+genome+"/"+bedname, sep='\t', index=False, header=None)
 
-hg19_genes = load_genes("hg19")
-hg38_genes = load_genes("hg38")
+#hg19_genes = load_genes("hg19")
+#hg38_genes = load_genes("hg38")
 
 # SINGLE PANEL
 # panel_tsv = "Mendeliome.tsv"
 # panel = load_panel(panel_tsv)
-# create_bed(panel_tsv,panel,genes)
+# create_bed(panel_tsv,panel,hg19_genes,"hg19")
 
-# LOOP THROUGH ALL PANELS IN PANELS FOLDER
-for file in os.listdir(folder+"/panels"):
-    filename = os.fsdecode(file)
-    if filename.endswith(".tsv"): 
-        print(filename)
-        panel = load_panel(filename)
-        bedname = filename.replace('tsv', 'bed')
-        create_bed(bedname,panel,hg19_genes,"hg19")
-        create_bed(bedname,panel,hg38_genes,"hg38")
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+    genome = args.genome
+    if genome == "hg38":
+        genes = load_genes("hg38")
+    else:
+        genome == "hg19"
+        genes = load_genes("hg19")
+    # LOOP THROUGH ALL PANELS IN PANELS FOLDER
+    for file in os.listdir(folder+"/panels"):
+        filename = os.fsdecode(file)
+        if filename.endswith(".tsv"): 
+            print(filename)
+            panel = load_panel(filename)
+            bedname = filename.replace('tsv', 'bed')
+            create_bed(bedname,panel,genes,genome)
