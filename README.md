@@ -12,7 +12,7 @@ PanelApp provides downloads of each panel in tsv form. The script takes these ts
 
 ## Using the Script
 
-1. Download or clone the repo, not just the tsv.py file, to get the needed folder structure.
+1. Download or clone the repo, not just the tsv.py file, to get the needed folder structure. The panels and genes folders along with the contents of the genes folder are necessary.
 
 2. Place all panels you want to convert in the panels folder.
 
@@ -27,3 +27,5 @@ python tsv.py
 ```text
 python tsv.py -G hg38
 ```
+
+5. When complete the bed files can be found in the output folder.

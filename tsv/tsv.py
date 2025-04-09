@@ -75,6 +75,11 @@ def create_bed(bedname,panel,genes,genome):
 
     # print(bed.head(10))
 
+    # MAKE OUTPUT DIRECTORY IF IT DOESN'T ALREADY EXIST
+    if not os.path.exists(folder+"/output/"+genome):
+        os.makedirs(folder+"/output/"+genome)
+
+    # SAVE OUTPUT TO BED FILE
     bed.to_csv(folder+"/output/"+genome+"/"+bedname, sep='\t', index=False, header=None)
 
 #hg19_genes = load_genes("hg19")
