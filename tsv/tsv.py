@@ -3,6 +3,7 @@ import os
 import argparse
 
 parser = argparse.ArgumentParser(description='Description of your app here.')
+parser.add_argument('-I', '--input', help='Choose a single panel to create bed file for.')
 parser.add_argument('-G', '--genome', default="hg19",  help='Choose a reference genome.')
 
 folder = os.path.dirname(__file__)
@@ -82,6 +83,16 @@ def create_bed(bedname,panel,genes,genome):
     # SAVE OUTPUT TO BED FILE
     bed.to_csv(folder+"/output/"+genome+"/"+bedname, sep='\t', index=False, header=None)
 
+def create_output(filename,genes):
+    if filename.endswith(".tsv"): 
+            print(filename)
+            panel = load_panel(filename)
+            bedname = filename.replace('tsv', 'bed')
+            create_bed(bedname,panel,genes,genome)
+    else:
+        print("Not a tsv file.")
+
+
 #hg19_genes = load_genes("hg19")
 #hg38_genes = load_genes("hg38")
 
@@ -93,17 +104,21 @@ def create_bed(bedname,panel,genes,genome):
 
 if __name__ == "__main__":
     args = parser.parse_args()
+
+    # GET GENE POSITIONS FOR SPECFIED REFERENCE GENOME
     genome = args.genome
     if genome == "hg38":
         genes = load_genes("hg38")
     else:
         genome == "hg19"
         genes = load_genes("hg19")
-    # LOOP THROUGH ALL PANELS IN PANELS FOLDER
-    for file in os.listdir(folder+"/panels"):
-        filename = os.fsdecode(file)
-        if filename.endswith(".tsv"): 
-            print(filename)
-            panel = load_panel(filename)
-            bedname = filename.replace('tsv', 'bed')
-            create_bed(bedname,panel,genes,genome)
+
+    # IF A SINGLE PANEL WAS SPECIFIED ONLY CREATE OUTPUT FOR THAT PANEL
+    inputpanel = args.input
+    if inputpanel:
+        create_output(inputpanel,genes)
+    # ELSE LOOP THROUGH ALL PANELS IN PANELS FOLDER
+    else:
+        for file in os.listdir(folder+"/panels"):
+            filename = os.fsdecode(file)
+            create_output(filename,genes)
