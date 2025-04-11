@@ -28,7 +28,7 @@ python tsv.py
 
 ## Optional Paramters
 
-Two optional parametrs are available for additional functionality.
+Two optional parameters are available for additional functionality.
 
 | Short Form | Long Form | Description |
 | ---------- | -------- | ----------- |
