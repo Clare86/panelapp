@@ -16,7 +16,7 @@ By deafult the script will run through all tsv files in the panels folder and cr
 
 1. Download or clone the repo, not just the tsv.py file, to get the needed folder structure. The panels and genes folders along with the contents of the genes folder are necessary.
 
-2. Download the panels you want to convert from Place all panels you want to convert from [PanelApp](https://panelapp.genomicsengland.co.uk/) and place in the panels folder.
+2. Download the panels you want to convert from [PanelApp](https://panelapp.genomicsengland.co.uk/) and place in the panels folder.
 
 3. Open a terminal window and navigate to the tsv folder and run:
 
