@@ -30,7 +30,7 @@ python tsv.py
 
 Two optional parametrs are available for additional functionality.
 
-| Short Form | Longform | Description |
+| Short Form | Long Form | Description |
 | ---------- | -------- | ----------- |
 | -G | --genome | Specify the reference genome; hg19 or hg38. Default is hg19. |
 | -I | --input | Specify a single panel instead of running through all panels. |
